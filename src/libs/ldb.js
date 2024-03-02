@@ -4,11 +4,13 @@ import { MMKV } from "react-native-mmkv";
 
 export const ldb = {
     set:(key,value)=>{
-        console.log(value)
-        ldbStorage.set(key,JSON.stringify(value));
+        if(typeof value === "string")
+            ldbStorage.set(key,value);
+        else  
+            ldbStorage.set(key,JSON.stringify(value));
     },
     get:(key)=>{
-        return ldbStorage.getString(key);
+        return ldbStorage.getString(key) ?? null;
     },
     clearAll:()=>{
         ldbStorage.clearAll();
