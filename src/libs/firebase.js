@@ -1,5 +1,8 @@
 import auth from '@react-native-firebase/auth';
-import {GoogleSignin,statusCodes} from '@react-native-google-signin/google-signin';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 import {useEffect, useState} from 'react';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
@@ -7,19 +10,19 @@ import messaging from '@react-native-firebase/messaging';
 import {Alert} from 'react-native';
 export const codes = statusCodes;
 export const signInWithGoogle = async () => {
-    // Configure signInPackage
-    GoogleSignin.configure({
-      // the client id from client_type:3
-      webClientId:
-        '560166412888-ddhgqs9mpo9u587b241t7268j5nm39vr.apps.googleusercontent.com',
-    });
+  // Configure signInPackage
+  GoogleSignin.configure({
+    // the client id from client_type:3
+    webClientId:
+      '560166412888-ddhgqs9mpo9u587b241t7268j5nm39vr.apps.googleusercontent.com',
+  });
 
-    await GoogleSignin.hasPlayServices();
-    const {idToken} = await GoogleSignin.signIn();
+  await GoogleSignin.hasPlayServices();
+  const {idToken} = await GoogleSignin.signIn();
 
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    return await auth().signInWithCredential(googleCredential);
+  return await auth().signInWithCredential(googleCredential);
 };
 
 export const signOut = async () => {
@@ -106,7 +109,7 @@ export async function buildLink(linkURL) {
   return link;
 }
 
-export const getDeviceToken = async () => {
+export const getDeviceFCMToken = async () => {
   await messaging().registerDeviceForRemoteMessages();
   const token = await messaging().getToken();
   return token;
@@ -114,16 +117,25 @@ export const getDeviceToken = async () => {
 
 export const registerForegroundMessageListener = () =>
   messaging().onMessage(async remoteMessage => {
-    Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    Alert.alert(
+      'A new FCM message arrived!',
+      JSON.stringify(remoteMessage, null, 2),
+    );
   });
 
 // Register background handler // put it in before appRegistry in index.js
 export const registerBackgroundMessageListener = () =>
   messaging().setBackgroundMessageHandler(async remoteMessage => {
-    console.log('Message handled in the background!', remoteMessage);
+    console.log(
+      'Message handled in the background!',
+      JSON.stringify(remoteMessage, null, 2),
+    );
   });
 // Register killState handler // put it in before appRegistry in index.js
 export const registerKillStateMessageListener = () =>
   messaging().getInitialNotification(async remoteMessage => {
-    console.log('Message handled in the Kill state!', remoteMessage);
+    console.log(
+      'Message handled in the Kill state!',
+      JSON.stringify(remoteMessage, null, 2),
+    );
   });

@@ -39,39 +39,18 @@ export const Icons = {
   EvilIcons,
 };
 
-const Icon = ({
-  type,
-  name,
-  color,
-  size = 24,
-  style = {},
-  source,
-  onPress = () => {},
-  disabled,
-  ...rest
-}) => {
+const VectorIcon = ({type, name, color, size = 24, style = {}, ...rest}) => {
   const fontSize = 24;
   const Tag = type;
   return (
-    <TouchableOpacity disabled={disabled} onPress={onPress} {...rest}>
-      <>
-        {source ? (
-          <Image source={source} style={[{height: size, width: size}, style]} />
-        ) : (
-          <>
-            {type && name && (
-              <Tag
-                name={name}
-                size={size || fontSize}
-                color={color}
-                style={[style]}
-              />
-            )}
-          </>
-        )}
-      </>
-    </TouchableOpacity>
+    <Tag
+      name={name}
+      size={size || fontSize}
+      color={color}
+      style={[style]}
+      {...rest}
+    />
   );
 };
 
-export default Icon;
+export default VectorIcon;

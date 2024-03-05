@@ -9,11 +9,18 @@ import config from '../../configs/app.config';
 export const setHeaders = () => {
   return {
     'x-device-token': ldb.get(ldbKeys.device_token) ?? '',
-    'x-uuid': ldb.get(ldbKeys.user_id) ?? '',
+    'x-uid': ldb.get(ldbKeys.user_id) ?? '',
     Authorization: `Bearer ${ldb.get(ldbKeys.access_token)}`,
   };
 };
-console.log(setHeaders())
+
+export const apiOptions = () => ({
+  headers: {
+    'x-device-token': ldb.get(ldbKeys.device_token) ?? '',
+    'x-uid': ldb.get(ldbKeys.user_id) ?? '',
+    Authorization: `Bearer ${ldb.get(ldbKeys.access_token)}`,
+  },
+});
 export const api = axios.create({
   baseURL: config.API_BASE_URL,
 });
@@ -29,7 +36,7 @@ export const useQC = () => {
 };
 
 api.interceptors.response.use(
-  ({data}) => {
+  data => {
     // console.log(`\n__RESPONSE::${data.message}\n`, data, "\n");
     return data;
   },
