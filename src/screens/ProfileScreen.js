@@ -37,7 +37,15 @@ export default function ProfileScreen({navigation}) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            ldb.clearAll();
+            navigation.navigate('Friends');
+          }}
+          className="bg-red-400 ">
+          <Text className="p-5">Friends</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            ldb.delete(ldbKeys.access_token);
+            ldb.delete(ldbKeys.user_id);
             navigation.navigate('Login');
           }}
           className="bg-red-400 my-1 ">

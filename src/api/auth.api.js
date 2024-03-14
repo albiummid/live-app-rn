@@ -1,11 +1,8 @@
 import {api, apiOptions, setHeaders} from '../services/api';
 
 export const deviceHandshakeToServer = async payload => {
-  const {data} = await api.post(
-    '/auth/device/handshake',
-    payload,
-    apiOptions(),
-  );
+  const {data} = await api.post('/auth/device/handshake', payload);
+  console.log(data);
   return data.result;
 };
 

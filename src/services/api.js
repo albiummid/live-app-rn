@@ -14,13 +14,16 @@ export const setHeaders = () => {
   };
 };
 
-export const apiOptions = () => ({
-  headers: {
-    'x-device-token': ldb.get(ldbKeys.device_token) ?? '',
-    'x-uid': ldb.get(ldbKeys.user_id) ?? '',
-    Authorization: `Bearer ${ldb.get(ldbKeys.access_token)}`,
-  },
-});
+export const apiOptions = () => {
+  let device_token = ldb.get(ldbKeys.device_token);
+  return {
+    headers: {
+      'x-device-token': device_token ?? '',
+      'x-uid': ldb.get(ldbKeys.user_id) ?? '',
+      Authorization: `Bearer ${ldb.get(ldbKeys.access_token)}`,
+    },
+  };
+};
 export const api = axios.create({
   baseURL: config.API_BASE_URL,
 });
@@ -37,7 +40,11 @@ export const useQC = () => {
 
 api.interceptors.response.use(
   data => {
-    // console.log(`\n__RESPONSE::${data.message}\n`, data, "\n");
+    // console.log(
+    //   `\n__RESPONSE::${data.message}\n`,
+    //   JSON.stringify(data.data, null, 2),
+    //   '\n',
+    // );
     return data;
   },
   async err => {

@@ -14,12 +14,13 @@ export const getFollowerList = async (followeeId, queryParams = `?page=1`) => {
 };
 export const checkIsFollowing = async (followeeId, followerId) => {
   const {data} = await api.get(
-    `check-is-following/${followeeId}/${followerId}`,
+    `/follow/check-is-following/${followeeId}/${followerId}`,
+    apiOptions(),
   );
   return data.result;
 };
 
-export const doFollow = async ({followeeId, followerId}) => {
+export const doFollow = async (followeeId, followerId) => {
   const {data} = await api.post(
     `/follow/do-follow`,
     {followeeId, followerId},
@@ -27,7 +28,7 @@ export const doFollow = async ({followeeId, followerId}) => {
   );
   return data.result;
 };
-export const doUnFollow = async ({followeeId, followerId}) => {
+export const doUnFollow = async (followeeId, followerId) => {
   const {data} = await api.post(
     `/follow/do-unfollow`,
     {followeeId, followerId},

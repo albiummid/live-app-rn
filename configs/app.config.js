@@ -3,7 +3,7 @@ const ENV = isDevENV ? 'development' : 'production';
 const getENV = (prodValue, devValue) => {
   return isDevENV ? devValue : prodValue;
 };
-const localhost = '192.168.0.108';
+const localhost = '192.168.0.116';
 const port = 5000;
 
 const config = {
@@ -30,6 +30,7 @@ const config = {
     'utm_source=PotroPotrika',
     'utm_source=PotroPotrika',
   ),
+  splashTime: 5,
 };
 
 export default config;

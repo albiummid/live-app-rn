@@ -7,7 +7,7 @@ export const deviceInit = async () => {
   const deviceToken = ldb.get(ldbKeys.device_token);
   if (!deviceToken) {
     try {
-      const result = await deviceHandshakeToServer({
+      const device = await deviceHandshakeToServer({
         local_id: DeviceInfo.getUniqueIdSync(),
         kind: 'Android',
         fcm_token: await getDeviceFCMToken(),
@@ -20,7 +20,8 @@ export const deviceInit = async () => {
           unique_id: DeviceInfo.getUniqueIdSync(),
         },
       });
-      ldb.set(ldbKeys.device_token, result.device.device_token);
+      console.log(device);
+      ldb.set(ldbKeys.device_token, device.device_token);
     } catch (err) {
       console.log(err);
     }

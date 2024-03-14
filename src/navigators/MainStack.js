@@ -7,10 +7,14 @@ import SplashScreen from '../screens/SplashScreen';
 import TabNavigator from './TabNavigator';
 import WalletScreen from '../screens/wallet';
 import {ldb} from '../libs/ldb';
+import config from '../../configs/app.config';
+import PublicProfileScreen from '../screens/PublicProfileScreen';
+import FriendScreen from '../screens/friend';
+import ConversationSearchScreen from '../screens/Conversation/ConversationSearch';
+import ChatScreen from '../screens/Conversation/ChatScreen';
 
 export default function MainStack() {
   const [started, setStarted] = useState(false);
-  const splashTime = 2000;
 
   useEffect(() => {
     let timer;
@@ -18,7 +22,7 @@ export default function MainStack() {
       timer = setTimeout(async () => {
         await deviceInit();
         setStarted(true);
-      }, splashTime);
+      }, config.splashTime * 1000);
     }
     return () => {
       clearTimeout(timer);
@@ -55,6 +59,45 @@ export default function MainStack() {
           name="Wallet"
           options={{
             headerTitleAlign: 'center',
+            headerShadowVisible: false,
+          }}
+        />
+        <MainStack.Screen
+          component={PublicProfileScreen}
+          name="PublicProfile"
+          options={{
+            headerTitleAlign: 'center',
+            headerShown: true,
+            headerTitle: 'Profile',
+            headerShadowVisible: false,
+          }}
+        />
+        <MainStack.Screen
+          component={FriendScreen}
+          name="Friends"
+          options={{
+            headerTitleAlign: 'center',
+            headerShown: true,
+            headerTitle: 'Friends',
+            headerShadowVisible: false,
+          }}
+        />
+        <MainStack.Screen
+          component={ConversationSearchScreen}
+          name="ConversationSearch"
+          options={{
+            headerTitleAlign: 'center',
+            headerShown: true,
+            headerTitle: 'Search for chat',
+            headerShadowVisible: false,
+          }}
+        />
+        <MainStack.Screen
+          component={ChatScreen}
+          name="Chat"
+          options={{
+            headerTitleAlign: 'center',
+            headerShown: true,
             headerShadowVisible: false,
           }}
         />

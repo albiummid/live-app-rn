@@ -5,6 +5,8 @@ import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ChatScreen from '../screens/Conversation/ChatScreen';
 import VectorIcon, {Icons} from '../components/VectorIcon';
+import PeopleScreen from '../screens/people';
+import ConversationScreen from '../screens/Conversation';
 
 export default function TabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -20,11 +22,28 @@ export default function TabNavigator() {
       <Tab.Screen
         options={{
           tabBarIcon: ({color, size, focused}) => (
-            <VectorIcon type={Icons.Feather} name={'home'} color={color} />
+            <VectorIcon
+              type={Icons.Ionicons}
+              name={focused ? 'home' : 'home-outline'}
+              color={color}
+            />
           ),
         }}
         name="Home"
         component={HomeScreen}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({color, size, focused}) => (
+            <VectorIcon
+              type={Icons.Ionicons}
+              name={focused ? 'people' : 'people-outline'}
+              color={color}
+            />
+          ),
+        }}
+        name="People"
+        component={PeopleScreen}
       />
       <Tab.Screen
         options={{
@@ -36,8 +55,8 @@ export default function TabNavigator() {
             />
           ),
         }}
-        name="Chat"
-        component={ChatScreen}
+        name="Conversation"
+        component={ConversationScreen}
       />
       <Tab.Screen
         name="Profle"
@@ -45,7 +64,7 @@ export default function TabNavigator() {
           tabBarIcon: ({color, size, focused}) => (
             <VectorIcon
               type={Icons.Ionicons}
-              name={'person-outline'}
+              name={focused ? 'person' : 'person-outline'}
               color={color}
             />
           ),
