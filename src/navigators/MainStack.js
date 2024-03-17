@@ -7,12 +7,14 @@ import SplashScreen from '../screens/SplashScreen';
 import TabNavigator from './TabNavigator';
 import WalletScreen from '../screens/wallet';
 import {ldb} from '../libs/ldb';
-import config from '../../configs/app.config';
 import PublicProfileScreen from '../screens/PublicProfileScreen';
 import FriendScreen from '../screens/friend';
 import ConversationSearchScreen from '../screens/Conversation/ConversationSearch';
 import ChatScreen from '../screens/Conversation/ChatScreen';
-
+import BroadcastRoom from '../screens/BroadcastScreens/BroadcastRoom';
+import SingleHost from '../screens/BroadcastScreens/SingleHost';
+import JoinBroadcast from '../screens/BroadcastScreens/JoinBroadcast';
+import config from '../../configs/app.config';
 export default function MainStack() {
   const [started, setStarted] = useState(false);
 
@@ -95,6 +97,33 @@ export default function MainStack() {
         <MainStack.Screen
           component={ChatScreen}
           name="Chat"
+          options={{
+            headerTitleAlign: 'center',
+            headerShown: true,
+            headerShadowVisible: false,
+          }}
+        />
+        <MainStack.Screen
+          component={BroadcastRoom}
+          name="BroadcastRoom"
+          options={{
+            headerTitleAlign: 'center',
+            headerShown: true,
+            headerShadowVisible: false,
+          }}
+        />
+        <MainStack.Screen
+          component={SingleHost}
+          name="SingleHost"
+          options={{
+            headerTitleAlign: 'center',
+            headerShown: true,
+            headerShadowVisible: false,
+          }}
+        />
+        <MainStack.Screen
+          component={JoinBroadcast}
+          name="JoinBroadcast"
           options={{
             headerTitleAlign: 'center',
             headerShown: true,

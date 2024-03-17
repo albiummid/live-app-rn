@@ -39,3 +39,29 @@ export const debounce = (cb, delay = 1000) => {
     }, delay);
   };
 };
+
+export function requiredFieldMissing(inObject, withKeys = []) {
+  let missing = [];
+
+  for (let key of withKeys) {
+    if (!inObject[key]) {
+      missing.push(key);
+    }
+  }
+
+  console.log('Missing Fields:');
+  console.log(missing);
+
+  return missing.length > 0 ? true : false;
+}
+
+export function getType(p) {
+  if (Array.isArray(p)) return 'array';
+  else if (typeof p == 'string') return 'string';
+  else if (p != null && typeof p == 'object') return 'object';
+  else return 'other';
+}
+
+export const Log = (msg, ...arg) => {
+  return console.log(`\n\n[ ${msg} ]==>>\n`, ...arg, '\n\n');
+};

@@ -7,6 +7,7 @@ import ChatScreen from '../screens/Conversation/ChatScreen';
 import VectorIcon, {Icons} from '../components/VectorIcon';
 import PeopleScreen from '../screens/people';
 import ConversationScreen from '../screens/Conversation';
+import GoLive from '../screens/GoLive';
 
 export default function TabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -44,6 +45,19 @@ export default function TabNavigator() {
         }}
         name="People"
         component={PeopleScreen}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({color, size, focused}) => (
+            <VectorIcon
+              type={Icons.MaterialCommunityIcons}
+              name={focused ? 'access-point' : 'access-point'}
+              color={color}
+            />
+          ),
+        }}
+        name="GoLive"
+        component={GoLive}
       />
       <Tab.Screen
         options={{

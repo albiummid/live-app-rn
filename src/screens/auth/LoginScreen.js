@@ -27,6 +27,7 @@ export default function LoginScreen({navigation}) {
           photo: photoURL,
         },
       });
+      console.log(data);
 
       ldb.set(ldbKeys.access_token, data.access_token);
       ldb.set(ldbKeys.user_id, data.user_id);
