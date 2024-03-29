@@ -49,7 +49,6 @@ import {getUserById} from '../../api/user.api';
 import {ldb} from '../../libs/ldb';
 import {ldbKeys} from '../../constants/keys';
 import {streamingServerWS, appServerWS} from '../../services/ws';
-import config from '../../../configs/app.config';
 
 let device;
 let deviceSendTransport;

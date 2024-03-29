@@ -15,7 +15,7 @@
     "apk-release": "cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
-    "@preact/signals-react": "^2.0.0",
+    "@preact/signals-react": "^2.0.1",
     "@react-native-community/geolocation": "^3.2.0",
     "@react-native-firebase/app": "^19.0.0",
     "@react-native-firebase/auth": "^19.0.0",
@@ -43,7 +43,8 @@
     "react-native-tab-view": "^3.5.2",
     "react-native-vector-icons": "^10.0.3",
     "react-native-webrtc": "^118.0.3",
-    "socket.io-client": "^4.7.4"
+    "socket.io-client": "^4.7.4",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

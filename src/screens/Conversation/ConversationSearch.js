@@ -1,14 +1,14 @@
-import {View, Text, TextInput, FlatList, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {getFriendList} from '../../api/friend.api';
-import useAuth from '../../hooks/useAuth';
-import {Avatar, TouchableRipple} from 'react-native-paper';
-import {getUserList} from '../../api/user.api';
-import {debounce} from '../../utils/helper';
+import {FlatList, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Avatar} from 'react-native-paper';
 import {
   createConversation,
   getConvesationByUIDs,
 } from '../../api/conversation.api';
+import {getFriendList} from '../../api/friend.api';
+import {getUserList} from '../../api/user.api';
+import useAuth from '../../hooks/useAuth';
+import {debounce} from '../../utils/helper';
 
 export default function ConversationSearchScreen({navigation}) {
   const {userId} = useAuth();

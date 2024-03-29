@@ -1,24 +1,14 @@
-import {
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-  TouchableHighlight,
-} from 'react-native';
+import moment from 'moment';
 import React, {useEffect, useRef, useState} from 'react';
-import VectorIcon, {Icons} from '../../components/VectorIcon';
-import {FAB} from 'react-native-paper';
+import {FlatList, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {
-  createConversation,
-  getConvesationByUIDs,
   getConvesationMessageList,
   sendMessage,
 } from '../../api/conversation.api';
+import VectorIcon, {Icons} from '../../components/VectorIcon';
+import {wsEvents} from '../../constants/keys';
 import useAuth from '../../hooks/useAuth';
 import {ws} from '../../services/ws';
-import {wsEvents} from '../../constants/keys';
-import moment from 'moment';
 
 export default function ChatScreen({route, navigation}) {
   const {conversation} = route.params;

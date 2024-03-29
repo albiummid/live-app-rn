@@ -1,5 +1,5 @@
-import MainStack from './navigators/MainStack';
 import {MD3LightTheme as DefaultTheme, PaperProvider} from 'react-native-paper';
+import MainStack from './navigators/MainStack';
 export default function App() {
   const theme = {
     ...DefaultTheme,

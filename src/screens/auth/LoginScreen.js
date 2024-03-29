@@ -10,6 +10,7 @@ import {api, apiOptions, setHeaders} from '../../services/api';
 import {ldb} from '../../libs/ldb';
 import {ldbKeys} from '../../constants/keys';
 import {approveGoogleSignIn} from '../../api/auth.api';
+import { getUserById } from '../../api/user.api';
 
 export default function LoginScreen({navigation}) {
   React.useEffect(() => {
@@ -27,25 +28,26 @@ export default function LoginScreen({navigation}) {
           photo: photoURL,
         },
       });
-      console.log(data);
-
       ldb.set(ldbKeys.access_token, data.access_token);
       ldb.set(ldbKeys.user_id, data.user_id);
+      const userInfo = await getUserById(data.user_id);
+      ldb.set(ldbKeys.user_info,userInfo);
       navigation.navigate('Tab');
     } catch (e) {
       console.log(e);
-      // if (error.code === codes.SIGN_IN_CANCELLED) {
-      //   // user cancelled the login flow
-      //   Alert.alert('Login process dismissed!');
-      // } else if (error.code === codes.IN_PROGRESS) {
-      //   // operation (e.g. sign in) is in progress already
-      //   Alert.alert('SignIn process running. Hold on.');
-      // } else if (error.code === codes.PLAY_SERVICES_NOT_AVAILABLE) {
-      //   // play services not available or outdated
-      //   Alert.alert('Your play service is outdated!');
-      // } else {
-      //   // some other error happened
-      // }
+      if (error.code === codes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        Alert.alert('Login process dismissed!');
+      } else if (error.code === codes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+        Alert.alert('SignIn process running. Hold on.');
+      } else if (error.code === codes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+        Alert.alert('Your play service is outdated!');
+      } else {
+        // some other error happened
+        Alert.alert('Other error happend!');
+      }
     }
   };
   return (

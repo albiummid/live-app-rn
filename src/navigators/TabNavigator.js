@@ -1,13 +1,11 @@
-import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import ChatScreen from '../screens/Conversation/ChatScreen';
+import React from 'react';
 import VectorIcon, {Icons} from '../components/VectorIcon';
-import PeopleScreen from '../screens/people';
 import ConversationScreen from '../screens/Conversation';
-import GoLive from '../screens/GoLive';
+import GoBroadcast from '../screens/GoBroadcast';
+import HomeScreen from '../screens/HomeScreen';
+import PeopleScreen from '../screens/people';
+import ProfileScreen from '../screens/ProfileScreen';
 
 export default function TabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -20,6 +18,19 @@ export default function TabNavigator() {
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
       }}>
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({color, size, focused}) => (
+            <VectorIcon
+              type={Icons.MaterialCommunityIcons}
+              name={focused ? 'access-point' : 'access-point'}
+              color={color}
+            />
+          ),
+        }}
+        name="GoBroadcast"
+        component={GoBroadcast}
+      />
       <Tab.Screen
         options={{
           tabBarIcon: ({color, size, focused}) => (
@@ -46,19 +57,7 @@ export default function TabNavigator() {
         name="People"
         component={PeopleScreen}
       />
-      <Tab.Screen
-        options={{
-          tabBarIcon: ({color, size, focused}) => (
-            <VectorIcon
-              type={Icons.MaterialCommunityIcons}
-              name={focused ? 'access-point' : 'access-point'}
-              color={color}
-            />
-          ),
-        }}
-        name="GoLive"
-        component={GoLive}
-      />
+
       <Tab.Screen
         options={{
           tabBarIcon: ({color, size, focused}) => (

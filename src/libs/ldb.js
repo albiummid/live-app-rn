@@ -8,7 +8,12 @@ export const ldb = {
     else ldbStorage.set(key, JSON.stringify(value));
   },
   get: key => {
-    return ldbStorage.getString(key) ?? null;
+    const string = ldbStorage.getString(key);
+    return string || null;
+  },
+  getObject: key => {
+    const string = ldbStorage.getString(key);
+    return JSON.parse(string) || string || null;
   },
   clearAll: () => {
     ldbStorage.clearAll();

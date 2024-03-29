@@ -31,7 +31,7 @@ const config = {
     'utm_source=PotroPotrika',
     'utm_source=PotroPotrika',
   ),
-  splashTime: 5,
+  splashTime: 1,
 };
 
 export default config;
