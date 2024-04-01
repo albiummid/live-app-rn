@@ -1,13 +1,14 @@
+import React, {useEffect, useState} from 'react';
 import {
-  View,
-  Text,
-  TextInput,
   FlatList,
   Image,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import {getUserList} from '../../api/user.api';
+import {getUserId} from '../../constants/values';
 import {debounce} from '../../utils/helper';
 
 export default function PeopleScreen({navigation}) {
@@ -56,6 +57,9 @@ export default function PeopleScreen({navigation}) {
           data={users}
           contentContainerStyle={{padding: 5}}
           renderItem={({item}) => {
+            if (item._id == getUserId()) {
+              return null;
+            }
             return (
               <TouchableOpacity
                 onPress={() => {

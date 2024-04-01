@@ -1,24 +1,27 @@
-import {View, Text, FlatList} from 'react-native';
+import moment from 'moment';
 import React, {useEffect, useState} from 'react';
-import useAuth from '../../hooks/useAuth';
+import {FlatList, Text, View} from 'react-native';
+import {Avatar, Button, Divider} from 'react-native-paper';
 import {
   acceptFriendRequest,
   getRequestReceiveList,
-  getRequestSendList,
+  rejectFriendRequest,
 } from '../../api/friend.api';
-import {Avatar, Button, Divider} from 'react-native-paper';
-import moment from 'moment';
+import {getUserId} from '../../constants/values';
 export default function FriendRequestsScreen() {
-  const {userId} = useAuth();
+  const userId = getUserId();
   const [list, setList] = useState([]);
   const [meta, setMeta] = useState(null);
 
   useEffect(() => {
     getRequestReceiveList(userId).then(d => {
+      console.log(d);
       setList(d.list);
       setMeta(d.meta);
     });
   }, []);
+
+  console.log(list);
   return (
     <View>
       <FlatList
@@ -36,7 +39,14 @@ export default function FriendRequestsScreen() {
               </View>
               <Divider className="my-2" />
               <View className="flex-row justify-between">
-                <Button onPress={() => {}} mode="contained" buttonColor="red">
+                <Button
+                  onPress={() => {
+                    rejectFriendRequest(item._id, getUserId()).then(() => {
+                      setList(l => l.filter(x => x._id !== item._id));
+                    });
+                  }}
+                  mode="contained"
+                  buttonColor="red">
                   Reject
                 </Button>
                 <Button

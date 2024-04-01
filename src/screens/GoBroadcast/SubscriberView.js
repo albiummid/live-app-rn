@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, Text, View} from 'react-native';
 import {RTCView} from 'react-native-webrtc';
 import useBroadcast from '../../hooks/useBroadcast';
@@ -7,10 +7,34 @@ import useBroadcastChat from '../../hooks/useBroadcastChat';
 
 export default function SubscriberView({broadcastId}) {
   const navigation = useNavigation();
-  const {subscriberId, remoteStreams, endBroadcasting, localStream, isCoHost} =
-    useBroadcast(broadcastId, 'Audience');
+  const {
+    subscriberId,
+    remoteStreams,
+    endBroadcasting,
+    localStream,
+    isCoHost,
+    isBroadcastEnded,
+  } = useBroadcast(broadcastId, 'Audience');
 
   const {ChatUI, chats} = useBroadcastChat(broadcastId, subscriberId);
+
+  useEffect(() => {
+    let timer;
+    if (isBroadcastEnded) {
+      timer = setTimeout(() => {
+        clearImmediate(timer);
+        navigation.goBack();
+      }, 3000);
+    }
+  }, [isBroadcastEnded]);
+
+  if (isBroadcastEnded) {
+    return (
+      <View className="flex-1 justify-center items-center">
+        <Text>Broadcast Ended...</Text>
+      </View>
+    );
+  }
 
   if (!remoteStreams.length > 0) {
     <View>
@@ -18,7 +42,7 @@ export default function SubscriberView({broadcastId}) {
     </View>;
   }
 
-  console.log(remoteStreams.length);
+  console.log(isBroadcastEnded, 'BEND');
 
   return (
     <View style={{flex: 1, position: 'relative'}}>
@@ -30,7 +54,7 @@ export default function SubscriberView({broadcastId}) {
             <View className="m-2 flex-1 bg-green-400 p-3 rounded-md">
               <RTCView
                 objectFit={'cover'}
-                style={{height: 150, backgroundColor: 'red'}}
+                style={{height: 600, backgroundColor: 'red'}}
                 streamURL={item.stream.toURL()}
               />
               <Text className="text-black text-center my-2">

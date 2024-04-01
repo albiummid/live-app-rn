@@ -1,4 +1,4 @@
-import config from '../../configs/app.config';
+import config from '../../settings';
 import {ldbKeys} from '../constants/keys';
 import {ldb} from '../libs/ldb';
 
@@ -16,7 +16,7 @@ export const ws = io(config.WS_BASE_URI, {
 export const streamingServerWS = io(config.STREAMING_SERVER_WS_URI, {
   // withCredentials:true,
   auth: getWSAuth(),
-  path:'/live.engine'
+  path: '/live.engine',
 });
 
 export const appServerWS = io(config.APP_SERVER_WS_URI, {

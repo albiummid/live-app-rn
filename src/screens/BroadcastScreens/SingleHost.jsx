@@ -37,11 +37,7 @@ import {
   bsSendComment,
   bsStopBroadcasting,
 } from '../../services/live/AppServerService';
-import {
-  LIVE_APP_ID,
-  LIVE_APP_KEY,
-  LIVE_APP_SECRET,
-} from '../../../configs/app.config.js';
+import {LIVE_APP_ID, LIVE_APP_KEY, LIVE_APP_SECRET} from '../../../settings.js';
 
 import {RTCPeerConnection, RTCView, mediaDevices} from 'react-native-webrtc';
 import SingleHostRemoteStream from './SingleHostRemoteStream';
@@ -550,7 +546,7 @@ function SingleHost(props) {
                 <View style={styles.broadcasterInfo}>
                   <Image
                     style={styles.hostImage}
-                    source={{uri: broadcastHost?.profileImage??""}}
+                    source={{uri: broadcastHost?.profileImage ?? ''}}
                   />
                   <View style={styles.headerLeftTitleId}>
                     <Text style={styles.hostName}>{broadcastHost?.name}</Text>

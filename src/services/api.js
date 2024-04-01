@@ -2,7 +2,7 @@ import {useQueryClient} from '@tanstack/react-query';
 import axios from 'axios';
 import {ldb} from '../libs/ldb';
 import {ldbKeys} from '../constants/keys';
-import config from '../../configs/app.config';
+import config from '../../settings';
 // import { effect } from "@preact/signals";
 // console.log(authState.value);
 export const setHeaders = () => {

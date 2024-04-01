@@ -1,4 +1,4 @@
-import config from '../../configs/app.config';
+import config from '../../settings';
 import {getUser, getUserId} from './values';
 
 export const BROADCAST_TYPE_NAMES = {

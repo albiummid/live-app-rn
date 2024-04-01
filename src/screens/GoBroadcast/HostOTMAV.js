@@ -7,10 +7,10 @@ import useBroadcastChat from '../../hooks/useBroadcastChat';
 
 export default function HostOTMAV({route, navigation}) {
   const {broadcastId} = route.params;
-  const {subscriberId, remoteStreams, endBroadcasting, localStream} =
+  const {subscriberId, remoteStreams, endBroadcasting, localStream, isCoHost} =
     useBroadcast(broadcastId, 'Host');
 
-  const {ChatUI, chats} = useBroadcastChat(broadcastId, subscriberId);
+  const {ChatUI, chats} = useBroadcastChat(broadcastId, subscriberId, 'HOST');
   if (!remoteStreams.length > 0) {
     <View>
       <Text>Your broadcast isn't pulishing yet</Text>
@@ -25,8 +25,8 @@ export default function HostOTMAV({route, navigation}) {
             <RTCView
               // mirror={isFrontCam ? true : false}
               mirror
-              objectFit={'cover'}
-              className="h-[600px]"
+              objectFit={'contain'}
+              className="h-[800px] flex-1"
               streamURL={item.stream.toURL()}
             />
           );
@@ -37,6 +37,8 @@ export default function HostOTMAV({route, navigation}) {
         <ChatUI
           localStream={localStream}
           chats={chats}
+          mode={'Host'}
+          isCoHost={isCoHost}
           onPressEnd={() => {
             endBroadcasting().finally(() => {
               navigation.goBack();

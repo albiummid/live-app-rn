@@ -1,8 +1,7 @@
-import {View, Text, Alert} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {getUserById} from '../api/user.api';
+import {useFocusEffect} from '@react-navigation/native';
+import React, {useCallback, useState} from 'react';
+import {Alert, Text, View} from 'react-native';
 import {Avatar, Button} from 'react-native-paper';
-import useAuth from '../hooks/useAuth';
 import {
   checkIsFollowing,
   doFollow,
@@ -15,6 +14,8 @@ import {
   getFriendshipStatus,
   sendFriendRequest,
 } from '../api/friend.api';
+import {getUserById} from '../api/user.api';
+import useAuth from '../hooks/useAuth';
 
 export default function PublicProfileScreen({navigation, route}) {
   const [userDetails, setUserDetails] = useState(null);
@@ -48,8 +49,6 @@ export default function PublicProfileScreen({navigation, route}) {
     });
   };
 
-  console.log(friendshipStatus);
-
   const countFollow = () => {
     getFollowCount(profileUserId).then(d => {
       setFollowCount(d);
@@ -62,18 +61,24 @@ export default function PublicProfileScreen({navigation, route}) {
       setFriendCount(d);
     });
   };
-  useEffect(() => {
-    getUserById(route.params._id)
-      .then(d => {
-        setUserDetails(d);
-      })
-      .finally(() => setLoadStates(prv => ({...prv, page: false})));
 
-    checkFollowing();
-    checkFriendship();
-    countFollow();
-    countFriend();
-  }, []);
+  console.log(friendshipStatus);
+
+  useFocusEffect(
+    useCallback(() => {
+      getUserById(route.params._id)
+        .then(d => {
+          setUserDetails(d);
+        })
+        .finally(() => setLoadStates(prv => ({...prv, page: false})));
+
+      checkFollowing();
+      checkFriendship();
+      countFollow();
+      countFriend();
+    }, []),
+  );
+
   if (loadStates.page) return <Text>LOadIng</Text>;
   return (
     <View className="flex-1 mx-auto p-10 space-y-2">

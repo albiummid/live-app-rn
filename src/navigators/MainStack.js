@@ -1,7 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
-import config from '../../configs/app.config';
+import config from '../../settings';
 import {deviceInit, getAuth} from '../libs/appInit';
 import LoginScreen from '../screens/auth/LoginScreen';
 import BroadcastRoom from '../screens/BroadcastScreens/BroadcastRoom';

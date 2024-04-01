@@ -1,7 +1,7 @@
 import {View, Text, StatusBar} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import config from '../../configs/app.config';
+import config from '../../settings';
 
 export default function SplashScreen() {
   return (

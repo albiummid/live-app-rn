@@ -18,6 +18,7 @@ export default function HostOTMAV({route, navigation}) {
     latestFiveViewers,
     localStream,
     hostList,
+    isCoHost,
   } = useBroadcast(broadcastId, 'Host');
 
   const {ChatUI, chats} = useBroadcastChat(broadcastId, subscriberId);
@@ -99,6 +100,8 @@ export default function HostOTMAV({route, navigation}) {
         <ChatUI
           localStream={localStream}
           chats={chats}
+          isCoHost={isCoHost}
+          mode={'Host'}
           onPressEnd={() => {
             endBroadcasting().finally(() => {
               navigation.goBack();

@@ -22,19 +22,6 @@ export default function TabNavigator() {
         options={{
           tabBarIcon: ({color, size, focused}) => (
             <VectorIcon
-              type={Icons.MaterialCommunityIcons}
-              name={focused ? 'access-point' : 'access-point'}
-              color={color}
-            />
-          ),
-        }}
-        name="GoBroadcast"
-        component={GoBroadcast}
-      />
-      <Tab.Screen
-        options={{
-          tabBarIcon: ({color, size, focused}) => (
-            <VectorIcon
               type={Icons.Ionicons}
               name={focused ? 'home' : 'home-outline'}
               color={color}
@@ -44,6 +31,20 @@ export default function TabNavigator() {
         name="Home"
         component={HomeScreen}
       />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({color, size, focused}) => (
+            <VectorIcon
+              type={Icons.MaterialCommunityIcons}
+              name={focused ? 'access-point' : 'access-point'}
+              color={color}
+            />
+          ),
+        }}
+        name="GoBroadcast"
+        component={GoBroadcast}
+      />
+
       <Tab.Screen
         options={{
           tabBarIcon: ({color, size, focused}) => (

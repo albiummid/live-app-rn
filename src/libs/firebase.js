@@ -4,9 +4,9 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
-import {useEffect, useState} from 'react';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import messaging from '@react-native-firebase/messaging';
+import {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 export const codes = statusCodes;
 export const signInWithGoogle = async () => {

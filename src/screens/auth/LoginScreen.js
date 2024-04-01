@@ -1,16 +1,11 @@
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import React from 'react';
-import {
-  codes,
-  getDeviceFCMToken,
-  getDeviceToken,
-  signInWithGoogle,
-} from '../../libs/firebase';
-import {api, apiOptions, setHeaders} from '../../services/api';
-import {ldb} from '../../libs/ldb';
-import {ldbKeys} from '../../constants/keys';
+import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import {approveGoogleSignIn} from '../../api/auth.api';
-import { getUserById } from '../../api/user.api';
+import {getUserById} from '../../api/user.api';
+import {ldbKeys} from '../../constants/keys';
+import {codes, getDeviceFCMToken, signInWithGoogle} from '../../libs/firebase';
+import {ldb} from '../../libs/ldb';
+import {apiOptions} from '../../services/api';
 
 export default function LoginScreen({navigation}) {
   React.useEffect(() => {
@@ -31,10 +26,9 @@ export default function LoginScreen({navigation}) {
       ldb.set(ldbKeys.access_token, data.access_token);
       ldb.set(ldbKeys.user_id, data.user_id);
       const userInfo = await getUserById(data.user_id);
-      ldb.set(ldbKeys.user_info,userInfo);
+      ldb.set(ldbKeys.user_info, userInfo);
       navigation.navigate('Tab');
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
       if (error.code === codes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
         Alert.alert('Login process dismissed!');

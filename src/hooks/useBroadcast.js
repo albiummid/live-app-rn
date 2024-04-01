@@ -58,8 +58,10 @@ export default function useBroadcast(
 
   const checkBroadcastStatus = async (userId, broadcastId) => {
     const ssBroadcast = await inquireBroadcast(userId, broadcastId, {});
+
     if (ssBroadcast.timeBook.endedAt) {
       setIsBroadcastEnded(true);
+      return;
     }
     setIsBroadcastEnded(false);
     const asBroadcast = await bsGetBroadcast({broadcastId});
@@ -71,9 +73,11 @@ export default function useBroadcast(
     checkBroadcastStatus(originId, broadcastId).then(() => {
       setIsBroadcastChecked(true);
     });
-  }, []);
+  }, [broadcastId]);
 
   const [called, setCalled] = useState(0);
+
+  console.log(isBroadcastEnded, 'BS_STATUS>>');
 
   // console.log(called);
   useEffect(() => {
@@ -419,25 +423,34 @@ export default function useBroadcast(
         let stream = new MediaStream();
         if (streamKind === 'FTMA') {
           const audioConsumer = consumers[0];
-          stream.addTrack(audioConsumer?._track);
-          await resumeConsumer(originId, broadcastId, audioConsumer.id);
-          if (!audioConsumer?.paused) {
-            console.log('Audio is being consumed');
+          if (audioConsumer?._track) {
+            stream.addTrack(audioConsumer?._track);
+            await resumeConsumer(originId, broadcastId, audioConsumer.id);
+
+            console.log(
+              !audioConsumer?.paused
+                ? 'Audio is being consumed'
+                : 'Audio is not being consumed',
+            );
           } else {
-            console.log('Audio is not being consumed');
+            console.log('TRACK_MISSING_IN_FTMA::A Loading');
           }
         } else {
           const videoConsumer = consumers[0];
           const audioConsumer = consumers[1];
 
-          stream.addTrack(videoConsumer?._track);
-          stream.addTrack(audioConsumer?._track);
-          await resumeConsumer(originId, broadcastId, audioConsumer.id);
-          await resumeConsumer(originId, broadcastId, videoConsumer.id);
-          if (!audioConsumer?.paused) {
-            console.log('Audio is being consumed');
+          if (audioConsumer?._track && videoConsumer?._track) {
+            stream.addTrack(videoConsumer?._track);
+            stream.addTrack(audioConsumer?._track);
+            await resumeConsumer(originId, broadcastId, audioConsumer.id);
+            await resumeConsumer(originId, broadcastId, videoConsumer.id);
+            console.log(
+              !audioConsumer?.paused
+                ? 'Audio is being consumed'
+                : 'Audio is not being consumed',
+            );
           } else {
-            console.log('Audio is not being consumed');
+            console.log('TRACK_MISSING_IN_NON-FTMA::AV Loading');
           }
         }
 
